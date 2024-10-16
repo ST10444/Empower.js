@@ -1,7 +1,7 @@
 import {Image ,Button, GestureResponderEvent, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const Life Skills = () => {
+const Skills = () => {
     function onPressLearnMore(event: GestureResponderEvent): void {
         throw new Error('Function not implemented.')
     }

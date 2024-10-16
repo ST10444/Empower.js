@@ -2,7 +2,7 @@ import { Image, Button, GestureResponderEvent, StyleSheet, Text, View } from 're
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 
-const Landscape: React.FC = () => {
+const Landscape = () => {
   const navigation = useNavigation();
 
   function onPressLearnMore(event: GestureResponderEvent): void {

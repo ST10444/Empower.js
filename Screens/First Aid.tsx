@@ -1,17 +1,48 @@
-import { Image, Button, GestureResponderEvent, StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import { Image, Button, GestureResponderEvent, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { Picker } from '@react-native-picker/picker';
+import { useNavigation } from '@react-navigation/native';
 
 const FirstAid = () => {
-  function onPressLearnMore(event: GestureResponderEvent): void {
-    console.log('Learn more button pressed');
-  }
+  const navigation = useNavigation();
+  const [selectedCourse, setSelectedCourse] = useState<string>(''); // State for selected course
+
+  const courses = [
+    'First Aid',
+    'Gardening',
+    'Landscaping',
+    'Cooking',
+    'Child Minding',
+    'Sewing',
+  ];
+
+  const onPressApply = () => {
+    // Navigate to the bookings page
+    navigation.navigate('Booking');
+  };
 
   return (
     <View style={styles.container}>
-      {/* Navigation Bar */}
+      {/* Back Arrow */}
+      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+        <Text style={styles.backButtonText}>←</Text>
+      </TouchableOpacity>
+
+      {/* Navigation Bar with Dropdown */}
       <View style={styles.navbar}>
         <Text style={styles.navItem}>Home</Text>
-        <Text style={styles.navItem}>Courses</Text>
+        <View style={styles.pickerContainer}>
+          <Picker
+            selectedValue={selectedCourse}
+            onValueChange={(itemValue) => setSelectedCourse(itemValue)}
+            style={styles.picker}
+          >
+            <Picker.Item label="Courses" value="" />
+            {courses.map((course) => (
+              <Picker.Item key={course} label={course} value={course} />
+            ))}
+          </Picker>
+        </View>
         <Text style={styles.navItem}>Bookings</Text>
         <Text style={styles.navItem}>Login</Text>
         <Text style={styles.navItem}>Contact Us</Text>
@@ -19,7 +50,7 @@ const FirstAid = () => {
 
       {/* Image */}
       <Image
-        source={{ uri: './First aid.jpg' }} // Replace with your image URL
+        source={{ uri: './FirstAid.jpg' }} // Replace with your image URL
         style={styles.image}
       />
 
@@ -36,10 +67,10 @@ const FirstAid = () => {
       </Text>
 
       <Button
-        onPress={onPressLearnMore}
+        onPress={onPressApply}
         title="Apply"
         color="#841584"
-        accessibilityLabel="Learn more about this purple button"
+        accessibilityLabel="Apply for the selected course"
       />
     </View>
   );
@@ -51,17 +82,38 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    backgroundColor: '#000', // Set background color to black
+  },
+  backButton: {
+    marginBottom: 10,
+  },
+  backButtonText: {
+    fontSize: 20,
+    color: '#841584',
   },
   navbar: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    backgroundColor: '#f8f8f8',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: 'black',
     paddingVertical: 10,
     marginBottom: 20,
   },
   navItem: {
     fontSize: 16,
     fontWeight: 'bold',
+    marginHorizontal: 10,
+    color: '#fff', // Change text color to white for contrast
+  },
+  pickerContainer: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  picker: {
+    height: 50,
+    width: '100%',
+    marginHorizontal: 10,
+    color: 'white',
   },
   image: {
     width: '100%',
@@ -73,22 +125,27 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 10,
+    color: '#fff', // Change text color to white for contrast
   },
   fees: {
     fontSize: 18,
     marginBottom: 5,
+    color: '#fff', // Change text color to white for contrast
   },
   purpose: {
     fontSize: 16,
     marginBottom: 5,
+    color: '#fff', // Change text color to white for contrast
   },
   content: {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 5,
+    color: '#fff', // Change text color to white for contrast
   },
   details: {
     fontSize: 16,
     marginBottom: 20,
+    color: '#fff', // Change text color to white for contrast
   },
 });

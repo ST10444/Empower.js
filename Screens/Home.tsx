@@ -1,33 +1,35 @@
-import { Image, Button, GestureResponderEvent, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 const Home = () => {
-  function onPressLearnMore(event: GestureResponderEvent): void {
-    console.log('Get Started button pressed');
-  }
+  const navigation = useNavigation();
+
+  const handleLoginPress = () => {
+    // Navigate to the Login page
+    navigation.navigate('Login'); // Replace 'Login' with the actual name of your login route
+  };
+
+  const handleEnterPress = () => {
+    // Handle the Enter button action
+    console.log("Enter button pressed");
+    // You can add your logic here
+  };
 
   return (
     <View style={styles.container}>
-      {/* Logo Image */}
+      <Text style={styles.title}>ChristoffelsTaste</Text>
+
       <Image
-        source={{ uri: './Logo.png' }} // Replace with your logo image URL
-        style={styles.logo}
+        source={require('./Logo.png')}
+        style={styles.logo} // Add styles to the logo
       />
 
-      <Text style={styles.text}>
-        Our dedicated team of domestic workers and gardeners provide top-notch services to transform your 
-        home and garden into a haven of serenity and beauty. Trust us to handle all your household and outdoor needs with care and precision.
-      </Text>
+      <TouchableOpacity style={styles.loginButton} onPress={handleLoginPress}>
+        <Text style={styles.buttonText}>Get Started</Text>
+      </TouchableOpacity>
 
       
-
-      {/* Get Started Button */}
-      <Button
-        onPress={onPressLearnMore}
-        title="Get Started"
-        color="#841584"
-        accessibilityLabel="Get started with our services"
-      />
     </View>
   );
 };
@@ -37,19 +39,30 @@ export default Home;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000', // Black background
-    padding: 20,
-    justifyContent: 'center',
     alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'black',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
   },
   logo: {
-    width: 100, // Adjust width as needed
-    height: 100, // Adjust height as needed
+    width: 450, // Adjust as needed
+    height: 450, // Adjust as needed
     marginBottom: 20,
   },
-  text: {
-    color: '#fff', // White text for contrast
-    textAlign: 'center',
-    marginBottom: 20,
+  loginButton: {
+    backgroundColor: 'green', // Button color for Login
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginBottom: 10, // Space between buttons
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
